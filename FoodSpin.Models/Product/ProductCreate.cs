@@ -1,16 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace FoodSpin.Data
+namespace FoodSpin.Models.Product
 {
-    public class Product
+    public class ProductCreate
     {
-        [Key]
-        public int ProductId { get; set; }
-
-        [Required]
-        public Guid OwnerId { get; set; }
-
         [Required]
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
@@ -34,7 +27,6 @@ namespace FoodSpin.Data
         [Required]
         [Display(Name = "Product Quantity")]
         public int ProductQuantity { get; set; }
-
     }
 
     public enum Category
