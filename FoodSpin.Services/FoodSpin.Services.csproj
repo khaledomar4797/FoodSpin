@@ -54,11 +54,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FoodSpin.Data\FoodSpin.Data.csproj">
+      <Project>{A7F85BA4-7F2A-4380-8913-C394DACCC07B}</Project>
+      <Name>FoodSpin.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FoodSpin.Models\FoodSpin.Models.csproj">
+      <Project>{965F7294-6061-4251-93AD-BF1AD3467D3A}</Project>
+      <Name>FoodSpin.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
