@@ -32,6 +32,8 @@ namespace FoodSpin.Data
             return new ApplicationDbContext();
         }
 
+        public DbSet<Product> Products { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder
