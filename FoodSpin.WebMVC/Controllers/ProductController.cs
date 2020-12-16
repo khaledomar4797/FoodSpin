@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace FoodSpin.WebMVC.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         // GET: Product
@@ -70,7 +71,10 @@ namespace FoodSpin.WebMVC.Controllers
                     ProductName = detail.ProductName,
                     ProductDescription = detail.ProductDescription,
                     ProductPrice = detail.ProductPrice,
-                    ProductImage = detail.ProductImage
+                    ProductImage = detail.ProductImage,
+                    ProductQuantity = detail.ProductQuantity,
+                    ProductCategory = detail.ProductCategory
+
                 };
 
             return View(model);

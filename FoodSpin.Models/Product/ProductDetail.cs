@@ -17,5 +17,12 @@ namespace FoodSpin.Models.Product
 
         [Display(Name = "Product Image")]
         public string ProductImage { get; set; }
+
+        [Display(Name = "Product Category")]
+        public Category ProductCategory { get; set; }
+
+        [Display(Name = "Product Quantity")]
+        public int ProductQuantity { get; set; }
     }
 }
+
