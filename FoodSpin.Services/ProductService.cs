@@ -63,7 +63,7 @@ namespace FoodSpin.Services
             }
         }
 
-        public async Task<ProductDetail> GetProductById(int id)
+        public async Task<ProductDetail> GetProductByIdAsync(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -84,7 +84,7 @@ namespace FoodSpin.Services
             }
         }
 
-        public async Task<bool> UpdateProduct(ProductEdit model)
+        public async Task<bool> UpdateProductAsync(ProductEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -105,7 +105,7 @@ namespace FoodSpin.Services
             }
         }
 
-        public async Task<bool> DeleteProduct(int productId)
+        public async Task<bool> DeleteProductAsync(int productId)
         {
             using (var ctx = new ApplicationDbContext())
             {
