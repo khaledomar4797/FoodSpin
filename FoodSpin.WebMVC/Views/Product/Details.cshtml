@@ -1,14 +1,65 @@
 ﻿@model FoodSpin.Models.Product.ProductDetail
 
 @{
-    ViewBag.Title = "Product Details";
+    ViewBag.Title = "Details";
 }
 
-<h2>Product Details</h2>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // Document.ready -> link up remove event handler
+        $(".AddLink").click(function () {
+            // Get the id from the link
+            var recordToAdd = $(this).attr("data-id");
+            if (recordToAdd != '') {
+                // Perform the ajax post
+                $.post("/ShoppingCart/AddToCart", { "id": recordToAdd },
+                    function (data) {
+                        $('#cart-status').text(data.CartCount);
+                    });
+            }
+        });
+    });
+</script>
+
+<!-- Button trigger modal -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div aria-hidden="true" class="alert alert-dismissable alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>An item was added to your cart.</strong> To check out now simply <a href="#" class="alert-link">click here</a>.
+    </div>
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirm check out.</h4>
+            </div>
+            <div class="modal-body">
+                <p>Would you like to check out or keep shopping?</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Continue</button>
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "ShoppingCart")'">Check Out</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<h2>Details</h2>
 
 <div>
-    <h4>ProductDetail</h4>
+    <h4>Item</h4>
     <hr />
+    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.ProductId)
@@ -53,6 +104,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId}) |
+    <a href="#" class="AddLink"
+       data-id="@Model.ProductId" data-toggle="modal" data-target="#myModal">
+        Add
+        to cart
+    </a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
     @Html.ActionLink("Back to List", "Index")
 </p>
