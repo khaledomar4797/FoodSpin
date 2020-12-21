@@ -1,4 +1,5 @@
-﻿@Html.ActionLink("Cart (" + ViewData["CartCount"] + ")",
+﻿@*@Html.ActionLink("Cart (" + ViewData["CartCount"] + ")",
 "Index",
 "ShoppingCart",
-new { id = "cart-status" }, new { @class = "navbar-brand" })
+new { id = "cart-status" }, new { @class = "navbar-brand" })*@
+<a href='@Url.Action("Index", "ShoppingCart")'>Cart <span id="cart-status" class="badge">@ViewData["CartCount"]</span></a>

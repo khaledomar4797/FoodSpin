@@ -25,8 +25,9 @@
                     <li>@Html.ActionLink("Product", "Index", "Product")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
                 </ul>
-                @{Html.RenderAction("CartSummary", "ShoppingCart");}
+                
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
