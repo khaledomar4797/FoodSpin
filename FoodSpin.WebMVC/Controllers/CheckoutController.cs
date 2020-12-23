@@ -22,10 +22,15 @@ namespace OpenOrderFramework.Controllers
         {
             var previousOrder = storeDB.Orders.FirstOrDefault(x => x.Username == User.Identity.Name);
 
-            if (previousOrder != null)
+            if (previousOrder != null) {
+                var cart = ShoppingCart.GetCart(this.HttpContext);
+                ViewBag.Cart = cart.GetCartProducts();
                 return View(previousOrder);
+            }
             else
+            {
                 return View();
+            }
         }
 
         //
@@ -40,12 +45,15 @@ namespace OpenOrderFramework.Controllers
                 order.Username = User.Identity.Name;
                 order.Email = User.Identity.Name;
                 order.OrderDate = DateTime.Now;
-                //Save Order
-                storeDB.Orders.Add(order);
-                await storeDB.SaveChangesAsync();
+                
                 //Process the order
                 var cart = ShoppingCart.GetCart(this.HttpContext);
                 order = cart.CreateOrder(order);
+
+                //Save Order
+                storeDB.Orders.Add(order);
+                await storeDB.SaveChangesAsync();
+
                 return RedirectToAction("Complete",
                     new { id = order.OrderId });
 

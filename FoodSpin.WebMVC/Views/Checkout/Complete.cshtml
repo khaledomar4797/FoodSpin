@@ -1,8 +1,19 @@
 ﻿@model int
 @{
-    ViewBag.Title = "Checkout Complete"; }
-<h2>Checkout Complete</h2>
-<p>Thanks for your order! Your order number is: @Model</p>
-<p>
-    How about shopping for some more music in our @Html.ActionLink("store", "Index", "Home")
-</p>
+    ViewBag.Title = "Checkout Complete";    
+}
+
+<div class="container">
+    <ul class="progressbar">
+        <li class="active">Shopping Cart</li>
+        <li class="active">Checkout</li>
+        <li class="active">Order Completed</li>
+    </ul>
+</div>
+
+<div class="container text-center">
+    <h2>Checkout Complete</h2>
+    <h4>Thank you. Your order has been received.</h4>
+    <p>Your order number is: @Model</p>
+    <button type="button" class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Index", "Home")'">Continue Ordering</button>
+</div>

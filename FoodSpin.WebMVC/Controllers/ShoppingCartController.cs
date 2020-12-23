@@ -14,7 +14,7 @@ namespace FoodSpin.WebMVC.Controllers
 
         ApplicationDbContext storeDB = new ApplicationDbContext();
         //
-        // GET: /ShoppingCart/
+        // GET: /ShoppingCart/Index
         public ActionResult Index()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
@@ -29,7 +29,7 @@ namespace FoodSpin.WebMVC.Controllers
             return View(viewModel);
         }
         //
-        // GET: /Store/AddToCart/5
+        // Post: /ShoppingCart/AddToCart/{id}
         [HttpPost]
         public ActionResult AddToCart(int id)
         {
@@ -58,7 +58,7 @@ namespace FoodSpin.WebMVC.Controllers
             // return RedirectToAction("Index");
         }
         //
-        // AJAX: /ShoppingCart/RemoveFromCart/5
+        // AJAX: /ShoppingCart/RemoveFromCart/{id}
         [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {

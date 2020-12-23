@@ -2,42 +2,63 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - FoodSpin</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        @@media (min-width: 768px) {
 
+            .navbar-center {
+                float: none;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .product-info {
+                padding-left: 6rem;
+            }
+
+            .navbar-center>li {
+                margin: 0px 15px 0px 15px;
+            }
+
+        }
+
+        .navbar-default {
+            background-color: transparent;
+            border-color: transparent;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("FoodSpin", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Product", "Index", "Product")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-center navbar">
+                    <li>@Html.ActionLink("Breakfast", "Breakfast", "Home")</li>
+                    <li>@Html.ActionLink("Lunch", "Lunch", "Home")</li>
+                    <li>@Html.ActionLink("Dinner", "Dinner", "Home")</li>
                 </ul>
-                
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
