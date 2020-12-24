@@ -18,6 +18,11 @@ namespace FoodSpin.Services
             _userId = userId;
         }
 
+        public ProductService()
+        {
+
+        }
+
         public async Task<bool> CreateProductAsync(ProductCreate model)
         {
             var entity =

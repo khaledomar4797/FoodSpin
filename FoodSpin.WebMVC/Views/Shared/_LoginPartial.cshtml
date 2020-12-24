@@ -13,7 +13,7 @@
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
                 </ul>
             </li>
-            <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
+            <li>@{Html.RenderAction("CartSummary", "Cart");}</li>
         </ul>
     }
 }
@@ -28,6 +28,6 @@ else
                 <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
             </ul>
         </li>
-        <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
+        <li>@{Html.RenderAction("CartSummary", "Cart");}</li>
     </ul>
 }

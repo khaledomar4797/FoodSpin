@@ -1,4 +1,4 @@
-﻿@model FoodSpin.WebMVC.Models.ShoppingCartViewModel
+﻿@model FoodSpin.WebMVC.Models.CartViewModel
 @{
     ViewBag.Title = "Shopping Cart";
 }
@@ -12,18 +12,18 @@
             var recordToDelete = $(this).attr("data-id");
             if (recordToDelete != '') {
                 // Perform the ajax post
-                $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
+                $.post("/Cart/RemoveFromCart", { "id": recordToDelete },
                     function (data) {
                         // Successful requests get here
                         // Update the page elements
-                        if (data.ProductCount == 0) {
+                        if (data.NumberOfProductsInCart == 0) {
                             $('#row-' + data.DeleteId).fadeOut('slow');
                         } else {
-                            $('#product-count-' + data.DeleteId).text(data.ProductCount);
+                            $('#product-count-' + data.DeleteId).text(data.NumberOfProductsInCart);
                         }
-                        $('#cart-total').text(data.CartTotal);
+                        $('#cart-total').text(data.CartTotalPrice);
                         $('#update-message').text(data.Message);
-                        $('#cart-status').text(data.CartCount);
+                        $('#cart-status').text(data.CartTotalProducts);
                     });
             }
         });
@@ -40,7 +40,7 @@
 
 @{
 
-    if (Model.CartItems.Count > 0)
+    if (Model.CartProductsList.Count > 0)
     {
         <div class="container">
             <table class="table">
@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var product in Model.CartItems)
+                    @foreach (var product in Model.CartProductsList)
                     {
                         <tr id="row-@product.ProductId">
                             <td>
@@ -86,7 +86,7 @@
                         <td></td>
                         <td></td>
                         <td id="cart-total">
-                            $@Model.CartTotal
+                            $@Model.CartTotalPrice
                         </td>
                     </tr>
                 </tbody>
@@ -94,7 +94,7 @@
 
             <div style="float: right; margin: 0px 20px 0px 20px;">
                 <button type="button" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Home")'">Continue Ordering</button>
-                <button type="button" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("AddressAndPayment", "Checkout")'">Processed to Checkout</button>
+                <button type="button" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Checkout")'">Processed to Checkout</button>
             </div>
         </div>
     }

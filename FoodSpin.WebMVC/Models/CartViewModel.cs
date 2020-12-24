@@ -6,9 +6,9 @@ using System.Web;
 
 namespace FoodSpin.WebMVC.Models
 {
-    public class ShoppingCartViewModel
+    public class CartViewModel
     {
-        public List<Cart> CartItems { get; set; }
-        public decimal CartTotal { get; set; }
+        public List<Cart> CartProductsList { get; set; }
+        public decimal CartTotalPrice { get; set; }
     }
 }

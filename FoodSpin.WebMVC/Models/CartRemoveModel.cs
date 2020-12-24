@@ -5,12 +5,12 @@ using System.Web;
 
 namespace FoodSpin.WebMVC.Models
 {
-    public class ShoppingCartRemoveViewModel
+    public class CartRemoveViewModel
     {
         public string Message { get; set; }
-        public decimal CartTotal { get; set; }
-        public int CartCount { get; set; }
-        public int ProductCount { get; set; }
+        public decimal CartTotalPrice { get; set; }
+        public int CartTotalProducts { get; set; }
+        public int NumberOfProductsInCart { get; set; }
         public int DeleteId { get; set; }
     }
 }

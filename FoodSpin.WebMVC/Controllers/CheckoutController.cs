@@ -14,16 +14,13 @@ namespace OpenOrderFramework.Controllers
     [Authorize]
     public class CheckoutController : Controller
     {
-        ApplicationDbContext storeDB = new ApplicationDbContext();
-
-        //
-        // GET: /Checkout/AddressAndPayment
-        public ActionResult AddressAndPayment()
+        // GET: /Checkout/Index
+        public ActionResult Index()
         {
-            var previousOrder = storeDB.Orders.FirstOrDefault(x => x.Username == User.Identity.Name);
+            var previousOrder = OrderService.GetPreviousOrder(this.HttpContext);
 
             if (previousOrder != null) {
-                var cart = ShoppingCart.GetCart(this.HttpContext);
+                var cart = CartService.GetCart(this.HttpContext);
                 ViewBag.Cart = cart.GetCartProducts();
                 return View(previousOrder);
             }
@@ -33,10 +30,9 @@ namespace OpenOrderFramework.Controllers
             }
         }
 
-        //
-        // POST: /Checkout/AddressAndPayment
+        // POST: /Checkout/PlaceOrder
         [HttpPost]
-        public async Task<ActionResult> AddressAndPayment(FormCollection values)
+        public ActionResult PlaceOrder(FormCollection values)
         {
             var order = new Order();
             TryUpdateModel(order);
@@ -46,21 +42,13 @@ namespace OpenOrderFramework.Controllers
                 order.Email = User.Identity.Name;
                 order.OrderDate = DateTime.Now;
                 
-                //Process the order
-                var cart = ShoppingCart.GetCart(this.HttpContext);
+                var cart = CartService.GetCart(this.HttpContext);
                 order = cart.CreateOrder(order);
 
-                //Save Order
-                storeDB.Orders.Add(order);
-                await storeDB.SaveChangesAsync();
-
-                return RedirectToAction("Complete",
-                    new { id = order.OrderId });
-
+                return RedirectToAction("Complete", new { id = order.OrderId });
             }
             catch
             {
-                //Invalid - redisplay with errors
                 return View(order);
             }
         }
@@ -69,10 +57,7 @@ namespace OpenOrderFramework.Controllers
         // GET: /Checkout/Complete
         public ActionResult Complete(int id)
         {
-            // Validate customer owns this order
-            bool isValid = storeDB.Orders.Any(
-                o => o.OrderId == id &&
-                o.Username == User.Identity.Name);
+            bool isValid = OrderService.IsValid(id, this.HttpContext);
 
             if (isValid)
             {

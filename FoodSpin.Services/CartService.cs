@@ -1,4 +1,5 @@
 ﻿using FoodSpin.Data;
+using FoodSpin.Models.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,66 +8,56 @@ using System.Web.Mvc;
 
 namespace FoodSpin.Services
 {
-    public partial class ShoppingCart
+    public partial class CartService
     {
-        ApplicationDbContext storeDB = new ApplicationDbContext();
-        string ShoppingCartId { get; set; }
+        ApplicationDbContext ctx = new ApplicationDbContext();
+        string CartId { get; set; }
         public const string CartSessionKey = "CartId";
 
-        public static ShoppingCart GetCart(HttpContextBase context)
+        public static CartService GetCart(HttpContextBase context)
         {
-            var cart = new ShoppingCart();
-            cart.ShoppingCartId = cart.GetCartId(context);
+            var cart = new CartService();
+            cart.CartId = cart.GetCartId(context);
             return cart;
         }
 
-        // Helper method to simplify shopping cart calls
-        public static ShoppingCart GetCart(Controller controller)
+        public static CartService GetCart(Controller controller)
         {
             return GetCart(controller.HttpContext);
         }
 
-        public int AddToCart(Product product)
+        public int AddToCart(ProductDetail product)
         {
-            // Get the matching cart and product instances
-            var cartProduct = storeDB.Carts.SingleOrDefault(
-                c => c.CartId == ShoppingCartId
+            var cartProduct = ctx.Carts.SingleOrDefault(
+                c => c.CartId == CartId
                 && c.ProductId == product.ProductId);
 
             if (cartProduct == null)
             {
-                // Create a new cart product if no cart product exists
                 cartProduct = new Cart
                 {
                     ProductId = product.ProductId,
-                    CartId = ShoppingCartId,
+                    CartId = CartId,
                     Count = 1,
                     DateCreated = DateTime.Now
                 };
-                storeDB.Carts.Add(cartProduct);
+                ctx.Carts.Add(cartProduct);
             }
             else
             {
-                // If the product does exist in the cart, 
-                // then add one to the quantity
                 cartProduct.Count++;
             }
-            // Save changes
-            storeDB.SaveChanges();
+
+            ctx.SaveChanges();
 
             return cartProduct.Count;
         }
 
         public int RemoveFromCart(int id)
         {
-
-
-            // Get the cart
-
-            var cartProduct = storeDB.Carts.Single(
-                cart => cart.CartId == ShoppingCartId
+            var cartProduct = ctx.Carts.Single(
+                cart => cart.CartId == CartId
                 && cart.ProductId == id);
-
 
             int productCount = 0;
 
@@ -79,50 +70,46 @@ namespace FoodSpin.Services
                 }
                 else
                 {
-                    storeDB.Carts.Remove(cartProduct);
+                    ctx.Carts.Remove(cartProduct);
                 }
-                // Save changes
-                storeDB.SaveChanges();
+
+                ctx.SaveChanges();
             }
             return productCount;
         }
 
         public void EmptyCart()
         {
-            var cartProducts = storeDB.Carts.Where(
-                cart => cart.CartId == ShoppingCartId);
+            var cartProducts = ctx.Carts.Where(
+                cart => cart.CartId == CartId);
 
             foreach (var cartProduct in cartProducts)
             {
-                storeDB.Carts.Remove(cartProduct);
+                ctx.Carts.Remove(cartProduct);
             }
-            // Save changes
-            storeDB.SaveChanges();
+
+            ctx.SaveChanges();
         }
 
         public List<Cart> GetCartProducts()
         {
-            return storeDB.Carts.Where(
-                cart => cart.CartId == ShoppingCartId).ToList();
+            return ctx.Carts.Where(
+                cart => cart.CartId == CartId).ToList();
         }
 
-        public int GetCount()
+        public int GetCartTotalProducts()
         {
-            // Get the count of each product in the cart and sum them up
-            int? count = (from cartProducts in storeDB.Carts
-                          where cartProducts.CartId == ShoppingCartId
+            int? count = (from cartProducts in ctx.Carts
+                          where cartProducts.CartId == CartId
                           select (int?)cartProducts.Count).Sum();
-            // Return 0 if all entries are null
+
             return count ?? 0;
         }
 
-        public decimal GetTotal()
+        public decimal GetCartTotalPrice()
         {
-            // Multiply product price by count of that product to get 
-            // the current price for each of those products in the cart
-            // sum all product price totals to get the cart total
-            decimal? total = (from cartProducts in storeDB.Carts
-                              where cartProducts.CartId == ShoppingCartId
+            decimal? total = (from cartProducts in ctx.Carts
+                              where cartProducts.CartId == CartId
                               select (int?)cartProducts.Count *
                               cartProducts.Product.ProductPrice).Sum();
 
@@ -135,8 +122,7 @@ namespace FoodSpin.Services
             order.OrderDetails = new List<OrderDetail>();
 
             var cartProducts = GetCartProducts();
-            // Iterate over the products in the cart, 
-            // adding the order details for each
+
             foreach (var product in cartProducts)
             {
                 var orderDetail = new OrderDetail
@@ -146,24 +132,23 @@ namespace FoodSpin.Services
                     UnitPrice = product.Product.ProductPrice,
                     Quantity = product.Count
                 };
-                // Set the order total of the shopping cart
+
                 orderTotal += (product.Count * product.Product.ProductPrice);
                 order.OrderDetails.Add(orderDetail);
-                storeDB.OrderDetails.Add(orderDetail);
+                ctx.OrderDetails.Add(orderDetail);
 
             }
-            // Set the order's total to the orderTotal count
-            order.Total = orderTotal;
 
-            // Save the order
-            storeDB.SaveChanges();
-            // Empty the shopping cart
+            order.Total = orderTotal;
+            ctx.Orders.Add(order);
+
+            ctx.SaveChanges();
+
             EmptyCart();
-            // Return the OrderId as the confirmation number
+
             return order;
         }
 
-        // We're using HttpContextBase to allow access to cookies.
         public string GetCartId(HttpContextBase context)
         {
             if (context.Session[CartSessionKey] == null)
@@ -175,27 +160,24 @@ namespace FoodSpin.Services
                 }
                 else
                 {
-                    // Generate a new random GUID using System.Guid class
                     Guid tempCartId = Guid.NewGuid();
-                    // Send tempCartId back to client as a cookie
+
                     context.Session[CartSessionKey] = tempCartId.ToString();
                 }
             }
             return context.Session[CartSessionKey].ToString();
         }
-
-        // When a user has logged in, migrate their shopping cart to
-        // be associated with their username
+        
         public void MigrateCart(string userName)
         {
-            var shoppingCart = storeDB.Carts.Where(
-                c => c.CartId == ShoppingCartId);
+            var cart = ctx.Carts.Where(
+                c => c.CartId == CartId);
 
-            foreach (Cart product in shoppingCart)
+            foreach (var product in cart)
             {
                 product.CartId = userName;
             }
-            storeDB.SaveChanges();
+            ctx.SaveChanges();
         }
     }
 }

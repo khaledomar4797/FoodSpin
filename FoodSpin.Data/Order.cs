@@ -9,6 +9,7 @@ namespace FoodSpin.Data
 {
     public partial class Order
     {
+        [Key]
         public int OrderId { get; set; }
         public string Username { get; set; }
         

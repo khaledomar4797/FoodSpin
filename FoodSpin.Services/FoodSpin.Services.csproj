@@ -76,9 +76,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShoppingCart.cs" />
+    <Compile Include="CartService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
