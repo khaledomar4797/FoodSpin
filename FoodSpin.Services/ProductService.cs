@@ -89,6 +89,30 @@ namespace FoodSpin.Services
             }
         }
 
+        public IEnumerable<ProductListItem> GetProductByCategory(string category)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                Data.Category categoryName = (Data.Category)Enum.Parse(typeof(Data.Category), category, true);
+                var query =
+                        ctx
+                        .Products
+                        .Where(p => p.ProductCategory == categoryName)
+                        .Select(
+                            p =>
+                                new ProductListItem
+                                {
+                                    ProductId = p.ProductId,
+                                    ProductName = p.ProductName,
+                                    ProductDescription = p.ProductDescription,
+                                    ProductPrice = p.ProductPrice,
+                                    ProductImage = p.ProductImage
+                                }
+                        ).ToList();
+
+                return query;
+            }
+        }
         public async Task<bool> UpdateProductAsync(ProductEdit model)
         {
             using (var ctx = new ApplicationDbContext())

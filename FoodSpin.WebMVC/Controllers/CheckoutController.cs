@@ -18,10 +18,11 @@ namespace OpenOrderFramework.Controllers
         public ActionResult Index()
         {
             var previousOrder = OrderService.GetPreviousOrder(this.HttpContext);
-
+            var cart = CartService.GetCart(this.HttpContext);
+            ViewBag.Cart = cart.GetCartProducts();
+            
             if (previousOrder != null) {
-                var cart = CartService.GetCart(this.HttpContext);
-                ViewBag.Cart = cart.GetCartProducts();
+                
                 return View(previousOrder);
             }
             else

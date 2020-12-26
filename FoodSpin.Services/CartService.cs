@@ -55,7 +55,7 @@ namespace FoodSpin.Services
 
         public int RemoveFromCart(int id)
         {
-            var cartProduct = ctx.Carts.Single(
+            var cartProduct = ctx.Carts.FirstOrDefault(
                 cart => cart.CartId == CartId
                 && cart.ProductId == id);
 
