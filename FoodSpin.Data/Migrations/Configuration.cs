@@ -10,7 +10,6 @@ namespace FoodSpin.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "FoodSpin.Data.ApplicationDbContext";
         }
 
         protected override void Seed(FoodSpin.Data.ApplicationDbContext context)

@@ -45,6 +45,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductImage)
+            <img src="~/Content/Images/@item.ProductImage" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |

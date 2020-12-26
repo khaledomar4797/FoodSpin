@@ -54,20 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cart.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\202012161844018_InitialCreate.cs" />
-    <Compile Include="Migrations\202012161844018_InitialCreate.Designer.cs">
-      <DependentUpon>202012161844018_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202012182349190_initial-setup.cs" />
+    <Compile Include="Migrations\202012182349190_initial-setup.Designer.cs">
+      <DependentUpon>202012182349190_initial-setup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012161858364_setup.cs" />
-    <Compile Include="Migrations\202012161858364_setup.Designer.cs">
-      <DependentUpon>202012161858364_setup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012162157342_updated-product-table.cs" />
-    <Compile Include="Migrations\202012162157342_updated-product-table.Designer.cs">
-      <DependentUpon>202012162157342_updated-product-table.cs</DependentUpon>
+    <Compile Include="Migrations\202012260147095_updatd-order-table.cs" />
+    <Compile Include="Migrations\202012260147095_updatd-order-table.Designer.cs">
+      <DependentUpon>202012260147095_updatd-order-table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderDetail.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,14 +75,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012161844018_InitialCreate.resx">
-      <DependentUpon>202012161844018_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012182349190_initial-setup.resx">
+      <DependentUpon>202012182349190_initial-setup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012161858364_setup.resx">
-      <DependentUpon>202012161858364_setup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012162157342_updated-product-table.resx">
-      <DependentUpon>202012162157342_updated-product-table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012260147095_updatd-order-table.resx">
+      <DependentUpon>202012260147095_updatd-order-table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

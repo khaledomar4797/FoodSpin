@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FoodSpin.WebMVC.Models;
 using FoodSpin.Data;
+using FoodSpin.Services;
 
 namespace FoodSpin.WebMVC.Controllers
 {
@@ -27,6 +28,13 @@ namespace FoodSpin.WebMVC.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+        }
+
+        private void MigrateCart(string UserName)
+        {
+            var cart = CartService.GetCart(this.HttpContext);
+            cart.MigrateCart(UserName);
+            Session[CartService.CartSessionKey] = UserName;
         }
 
         public ApplicationSignInManager SignInManager
@@ -73,6 +81,8 @@ namespace FoodSpin.WebMVC.Controllers
             {
                 return View(model);
             }
+
+            MigrateCart(model.Email);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -156,6 +166,8 @@ namespace FoodSpin.WebMVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    MigrateCart(model.Email);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
