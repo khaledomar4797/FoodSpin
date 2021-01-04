@@ -1,0 +1,168 @@
+﻿@model IEnumerable<FoodSpin.Models.Product.ProductListItem>
+
+@{
+    ViewBag.Title = "Lunch";
+}
+<style>
+    .meal-bg {
+        background-color: #5cff70;
+        color: black;
+    }
+    .meal-font-color {
+        color: #5cff70;
+    }
+</style>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Product successfully added to your shopping cart.</h4>
+            </div>
+            <div class="modal-body">
+                <p>Would you like to view your cart or keep ordering?</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Continue Ordering</button>
+                <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Cart")'">View Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="product-info col-md-4">
+            <ul id="slides">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    if (i == 0)
+                    {
+                        <li class="slide showing">
+                            <h1 class="meal-font-color">$@Model.ElementAt(i).ProductPrice</h1>
+                            <h2>@Model.ElementAt(i).ProductName</h2>
+                            <p>@Model.ElementAt(i).ProductDescription</p>
+                            <button type="button" data-id="@Model.ElementAt(i).ProductId"
+                                    data-toggle="modal" data-target="#myModal" class="AddToCart meal-bg btn btn-primary center-block">
+                                Order Now
+                            </button>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="slide">
+                            <h1 class="meal-font-color">$@Model.ElementAt(i).ProductPrice</h1>
+                            <h2>@Model.ElementAt(i).ProductName</h2>
+                            <p>@Model.ElementAt(i).ProductDescription</p>
+                            <button type="button" data-id="@Model.ElementAt(i).ProductId"
+                                    data-toggle="modal" data-target="#myModal" class="AddToCart meal-bg btn btn-primary center-block">
+                                Order Now
+                            </button>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+
+        <div class="col-md-8">
+            <div class="circle meal-bg">
+                @foreach (var product in Model)
+                {
+                    string imageName = product.ProductImage + ".jpg";
+                    <img src="~/Content/Images/@imageName" class="spinner">
+                }
+                <div class="dotted-circle"></div>
+            </div>
+            <div style="position: absolute; bottom: -32em; width: 100%;">
+                <button type="button" id="moveleft" class="btn meal-bg control btn-primary pull-left" style="float: left; margin-left: 13em; border-radius: 50%;">&#8595;</button>
+                <button type="button" id="moveright" class="btn meal-bg control btn-primary pull-right" style="float: right; margin-right: 10em; border-radius: 50%;">&#8595;</button>
+            </div>
+
+            <ul id="list-of-front-image">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    string imageName = Model.ElementAt(i).ProductImage + ".jpg";
+
+                    if (i == 0)
+                    {
+                        <li class="front-image showing"><img src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
+                    }
+                    else
+                    {
+                        <li class="front-image"><img src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
+
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var slides = document.querySelectorAll('#slides .slide');
+    var images = document.querySelectorAll('.front-image');
+    var currentSlide = 0;
+    var currentImage = 0;
+
+    function nextSlide() {
+        goToSlide(currentSlide - 1);
+    }
+
+    function previousSlide() {
+        goToSlide(currentSlide + 1);
+    }
+
+    function goToSlide(n) {
+        slides[currentSlide].className = 'slide';
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].className = 'slide showing';
+
+        images[currentImage].className = 'front-image';
+        currentImage = (n + images.length) % images.length;
+        images[currentImage].className = 'front-image showing';
+    }
+    function drawCircle(selector, center, radius, angle, x, y) {
+        var total = $(selector).length;
+        var alpha = Math.PI * 2 / total;
+        angle *= Math.PI / 180;
+
+        $(selector).each(function (index) {
+            var theta = alpha * index;
+            var pointx = Math.floor(Math.cos(theta - angle) * radius);
+            var pointy = Math.floor(Math.sin(theta - angle) * radius);
+
+            $(this).css('margin-left', pointx + x + 'px');
+            $(this).css('margin-top', pointy + y + 'px');
+        });
+
+    }
+    $(document).ready(function () {
+        var angle = 90;
+
+        drawCircle('.spinner', 0, 200, angle, 350, 750);
+
+        $("#moveright").on('click', function () {
+            nextSlide();
+            angle = angle - 72;
+            drawCircle('.spinner', 50, 200, angle, 350, 750);
+        });
+
+        $("#moveleft").on('click', function () {
+            previousSlide();
+            angle = angle + 72;
+            drawCircle('.spinner', 50, 200, angle, 350, 750);
+        });
+
+        $(".AddToCart").click(function () {
+            var productToAdd = $(this).attr("data-id");
+            if (productToAdd != '') {
+                $.post("/Cart/AddToCart", { "id": productToAdd },
+                    function (data) {
+                        $('#cart-status').text(data.CartTotalProducts);
+                    });
+            }
+        });
+    });
+</script>

@@ -3,20 +3,271 @@
     padding-bottom: 20px;
 }
 
+.navbar-default {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+@media (min-width: 768px) {
+    .navbar-center {
+        float: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.7rem;
+    }
+
+    .product-info {
+        padding-left: 6rem;
+    }
+
+    .navbar-center > li {
+        margin: 0px 15px 0px 15px;
+    }
+    
+    .progressbar {
+        margin-left: 10rem;
+        padding-left: 10rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-default {
+        background-color: white;
+        border-color: transparent;
+    }
+
+    .circle {
+        display: none;
+    }
+}
+
+.progressbar {
+    counter-reset: step;
+    padding-top: 1rem;
+}
+
+.progressbar li {
+    list-style-type: none;
+    width: 25%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    color: #7d7d7d;
+}
+
+.progressbar li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 30px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+
+.progressbar li:first-child:after {
+    content: none;
+}
+
+.progressbar li.active {
+    color: green;
+}
+
+.progressbar li.active:before {
+    border-color: #55b776;
+}
+
+.progressbar li.active + li:after {
+    background-color: #55b776;
+}
+
+.badge {
+    padding: 2px 5px;
+    position: absolute;
+    top: 10px;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.lh-condensed {
+    line-height: 1.25;
+}
+
+.justify-content-between {
+    -ms-flex-pack: justify !important;
+    justify-content: space-between !important;
+}
+
+.d-flex {
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.mb-3 {
+    margin-bottom: 2rem !important;
+}
+
+.order-md-1 {
+    border-right: 1px solid lightgray;
+}
+
+.checkout {
+    margin-top: 2rem;
+}
+
+.complete {
+    margin-top: 5rem;
+}
+
+.circle {
+    width: 60em;
+    position: absolute;
+    height: 60em;
+    float: right;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: antiquewhite;
+    z-index: 1;
+    top: -45rem;
+    right: -8rem;
+}
+
+.dotted-circle {
+    width: 28em;
+    position: absolute;
+    height: 28em;
+    border-radius: 50%;
+    border: 2px dashed black;
+    z-index: -1;
+    top: 60rem;
+    right: 22rem;
+}
+
+.spinner {
+    border-radius: 150px;
+    background-position: 0px 0px;
+    position: absolute;
+    background-repeat: no-repeat;
+    float: left;
+    height: 120px;
+    width: 120px;
+    margin: 18px;
+    padding: 5px;
+    transition: 1s linear;
+}
+
+.control {
+    left: -43em;
+    bottom: -40em;
+}
+
+#slides {
+    position: relative;
+    height: 300px;
+    padding: 0px;
+    margin: 35px;
+    list-style-type: none;
+    margin-top: 165px;
+}
+
+.slide {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    z-index: 1;
+}
+
+#list-of-front-image {
+    list-style-type: none;
+}
+
+.front-image {
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    bottom: -45rem;
+    left: 33rem;
+}
+
+.showing {
+    opacity: 1;
+    z-index: 2;
+    transition: linear 1s;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    color: black;
+    background-size: cover;
+    font-size: 17px;
+}
+
+.AddToCart {
+    margin-top: 5rem;
+    width: 140px;
+    margin-top: 5rem;
+    border-radius: 20px;
+}
+
+
+.divs-background {
+    background-color: darkorange;
+    border: none;
+}
 /* Set padding to keep content from hitting the edges */
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
+
 .dl-horizontal dt {
     white-space: normal;
 }
 
+
 /* Set width on the form input elements since they're 100% wide by default */
+
 input,
 select,
 textarea {

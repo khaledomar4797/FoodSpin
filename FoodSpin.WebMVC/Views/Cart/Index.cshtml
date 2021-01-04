@@ -1,0 +1,108 @@
+﻿@model FoodSpin.WebMVC.Models.CartViewModel
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".RemoveProduct").click(function () {
+            var productToDelete = $(this).attr("data-id");
+            if (productToDelete != '') {
+                $.post("/Cart/RemoveFromCart", { "id": productToDelete },
+                    function (data) {
+                        if (data.NumberOfProductsInCart == 0) {
+                            $('#row-' + data.DeleteId).fadeOut('slow');
+                        } else {
+                            $('#product-count-' + data.DeleteId).text(data.NumberOfProductsInCart);
+                        }
+                        $('#cart-total').text(data.CartTotalPrice);
+                        $('#cart-status').text(data.CartTotalProducts);
+                    });
+            }
+        });
+    });
+</script>
+
+<div class="container">
+    <ul class="progressbar">
+        <li class="active">Shopping Cart</li>
+        <li>Checkout</li>
+        <li>Order Completed</li>
+    </ul>
+</div>
+
+@{
+
+    if (Model.CartProductsList.Count > 0)
+    {
+        <div class="container">
+            <table class="table">
+                <caption>Shopping Cart</caption>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Remove</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.CartProductsList)
+                    {
+                        <tr id="row-@product.ProductId">
+                            <td>
+                                @Html.ActionLink(product.Product.ProductName, "Details", "Product", new { id = product.ID }, null)
+                            </td>
+                            <td>
+                                $@product.Product.ProductPrice
+                            </td>
+                            <td id="product-count-@product.ProductId">
+                                @product.Count
+                            </td>
+                            <td>
+                                <a href="#" class="RemoveProduct"
+                                   data-id="@product.ProductId">
+                                    <span>&times;</span>
+                                </a>
+                            </td>
+                            <td>
+                                @(product.Product.ProductPrice * product.Count)
+                            </td>
+                        </tr>
+                    }
+                    <tr class="">
+                        <td>
+                            Total
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="cart-total">
+                            $@Model.CartTotalPrice
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="float: right; margin: 0px 20px 0px 20px;">
+                <button type="button" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Home")'">Continue Ordering</button>
+                <button type="button" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Checkout")'">Processed to Checkout</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container text-center">
+            <hr />
+            <h3>
+                Your cart is currently empty.
+            </h3>
+            <p>
+                Before proceeding to checkout you must add some products to your shopping cart.
+            </p>
+            <button type="button" class="btn btn-default btn-sm complete" onclick="location.href='@Url.Action("Index", "Home")'">Continue Ordering</button>
+        </div>
+    }
+}
