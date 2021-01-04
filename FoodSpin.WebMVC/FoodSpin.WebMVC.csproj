@@ -218,7 +218,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -246,8 +245,11 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\Complete.cshtml" />
-    <Content Include="Views\Cart\CartSummary.cshtml" />
+    <Content Include="Views\Cart\CartStatus.cshtml" />
     <Content Include="Views\Shared\demo.cshtml" />
+    <Content Include="Views\Home\Breakfast.cshtml" />
+    <Content Include="Views\Home\Lunch.cshtml" />
+    <Content Include="Views\Home\Dinner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

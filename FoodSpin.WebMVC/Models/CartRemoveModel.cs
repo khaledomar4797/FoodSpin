@@ -7,7 +7,6 @@ namespace FoodSpin.WebMVC.Models
 {
     public class CartRemoveViewModel
     {
-        public string Message { get; set; }
         public decimal CartTotalPrice { get; set; }
         public int CartTotalProducts { get; set; }
         public int NumberOfProductsInCart { get; set; }
