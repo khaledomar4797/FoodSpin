@@ -1,8 +1,17 @@
 ﻿@model IEnumerable<FoodSpin.Models.Product.ProductListItem>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Lunch";
 }
+<style>
+    .meal-bg {
+        background-color: #5cff70;
+        color: black;
+    }
+    .meal-font-color {
+        color: #5cff70;
+    }
+</style>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
@@ -31,11 +40,11 @@
                     if (i == 0)
                     {
                         <li class="slide showing">
-                            <h1>$@Model.ElementAt(i).ProductPrice</h1>
+                            <h1 class="meal-font-color">$@Model.ElementAt(i).ProductPrice</h1>
                             <h2>@Model.ElementAt(i).ProductName</h2>
                             <p>@Model.ElementAt(i).ProductDescription</p>
                             <button type="button" data-id="@Model.ElementAt(i).ProductId"
-                                    data-toggle="modal" data-target="#myModal" class="AddToCart btn btn-primary center-block">
+                                    data-toggle="modal" data-target="#myModal" class="AddToCart meal-bg btn btn-primary center-block">
                                 Order Now
                             </button>
                         </li>
@@ -43,11 +52,11 @@
                     else
                     {
                         <li class="slide">
-                            <h1>$@Model.ElementAt(i).ProductPrice</h1>
+                            <h1 class="meal-font-color">$@Model.ElementAt(i).ProductPrice</h1>
                             <h2>@Model.ElementAt(i).ProductName</h2>
                             <p>@Model.ElementAt(i).ProductDescription</p>
                             <button type="button" data-id="@Model.ElementAt(i).ProductId"
-                                    data-toggle="modal" data-target="#myModal" class="AddToCart btn btn-primary center-block">
+                                    data-toggle="modal" data-target="#myModal" class="AddToCart meal-bg btn btn-primary center-block">
                                 Order Now
                             </button>
                         </li>
@@ -57,7 +66,7 @@
         </div>
 
         <div class="col-md-8">
-            <div class="circle">
+            <div class="circle meal-bg">
                 @foreach (var product in Model)
                 {
                     string imageName = product.ProductImage + ".jpg";
@@ -66,8 +75,8 @@
                 <div class="dotted-circle"></div>
             </div>
             <div style="position: absolute; bottom: -32em; width: 100%;">
-                <button type="button" id="moveleft" class="btn control btn-primary pull-left" style="float: left; margin-left: 13em; border-radius: 50%;">&#8595;</button>
-                <button type="button" id="moveright" class="btn control btn-primary pull-right" style="float: right; margin-right: 10em; border-radius: 50%;">&#8595;</button>
+                <button type="button" id="moveleft" class="btn meal-bg control btn-primary pull-left" style="float: left; margin-left: 13em; border-radius: 50%;">&#8595;</button>
+                <button type="button" id="moveright" class="btn meal-bg control btn-primary pull-right" style="float: right; margin-right: 10em; border-radius: 50%;">&#8595;</button>
             </div>
 
             <ul id="list-of-front-image">
@@ -151,7 +160,7 @@
             if (productToAdd != '') {
                 $.post("/Cart/AddToCart", { "id": productToAdd },
                     function (data) {
-                        $('#cart-status').text(data.CartTotalProducts );
+                        $('#cart-status').text(data.CartTotalProducts);
                     });
             }
         });

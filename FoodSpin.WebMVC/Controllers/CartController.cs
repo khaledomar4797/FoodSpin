@@ -12,7 +12,7 @@ namespace FoodSpin.WebMVC.Controllers
 {
     public class CartController : Controller
     {
-        // GET: /Cart/Index
+        // GET: Cart/Index
         public ActionResult Index()
         {
             var cart = CartService.GetCart(this.HttpContext);
@@ -26,7 +26,7 @@ namespace FoodSpin.WebMVC.Controllers
             return View(viewModel);
         }
 
-        // Post: /Cart/AddToCart/{id}
+        // Post: Cart/AddToCart/{id}
         [HttpPost]
         public async Task<ActionResult> AddToCart(int id)
         {
@@ -39,19 +39,18 @@ namespace FoodSpin.WebMVC.Controllers
 
             var model = new CartRemoveViewModel
             {
-                Message = Server.HtmlEncode(product.ProductName) +
-                    " has been added to your shopping cart.",
                 CartTotalPrice = cart.GetCartTotalPrice(),
                 CartTotalProducts = cart.GetCartTotalProducts(),
                 NumberOfProductsInCart = numberOfProductsInCart,
                 DeleteId = id
             };
+
             return Json(model);
 
             // return RedirectToAction("Index");
         }
 
-        // AJAX: /Cart/RemoveFromCart/{id}
+        // AJAX: Cart/RemoveFromCart/{id}
         [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {
@@ -61,24 +60,24 @@ namespace FoodSpin.WebMVC.Controllers
 
             var model = new CartRemoveViewModel
             {
-                Message = "One (1) Product" +
-                    " has been removed from your shopping cart.",
                 CartTotalPrice = cart.GetCartTotalPrice(),
                 CartTotalProducts = cart.GetCartTotalProducts(),
                 NumberOfProductsInCart = productCount,
                 DeleteId = id
             };
+
             return Json(model);
         }
 
-        // GET: /Cart/CartSummary
+        // GET: Cart/CartStatus
         [ChildActionOnly]
-        public ActionResult CartSummary()
+        public ActionResult CartStatus()
         {
             var cart = CartService.GetCart(this.HttpContext);
 
             ViewData["CartCount"] = cart.GetCartTotalProducts();
-            return PartialView("CartSummary");
+
+            return PartialView("CartStatus");
         }
     }
 }

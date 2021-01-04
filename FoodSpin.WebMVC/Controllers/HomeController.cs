@@ -11,11 +11,33 @@ namespace FoodSpin.WebMVC.Controllers
     {
         public ActionResult Index()
         {
+            return RedirectToAction("Breakfast");
+        }
+
+        public ActionResult Breakfast()
+        {
             var productService = new ProductService();
             string categoryName = "Breakfast";
             var model = productService.GetProductByCategory(categoryName);
             return View(model);
         }
+
+        public ActionResult Lunch()
+        {
+            var productService = new ProductService();
+            string categoryName = "Lunch";
+            var model = productService.GetProductByCategory(categoryName);
+            return View(model);
+        }
+
+        public ActionResult Dinner()
+        {
+            var productService = new ProductService();
+            string categoryName = "Dinner";
+            var model = productService.GetProductByCategory(categoryName);
+            return View(model);
+        }
+
 
         public ActionResult About()
         {
