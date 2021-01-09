@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace FoodSpin.Data
+namespace FoodSpin.Models.Order
 {
-    public partial class Order
+    public class OrderCreate
     {
-        [Key]
-        public int OrderId { get; set; }
         public string Username { get; set; }
 
         [Required]
@@ -33,7 +26,6 @@ namespace FoodSpin.Data
         [Required]
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
-
         public string Country { get; set; }
 
         [Required]
@@ -43,6 +35,5 @@ namespace FoodSpin.Data
 
         [Display(Name = "Order Date")]
         public System.DateTime OrderDate { get; set; }
-        public virtual List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
     }
 }

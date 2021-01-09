@@ -20,7 +20,8 @@ namespace OpenOrderFramework.Controllers
             var previousOrder = OrderService.GetPreviousOrder(this.HttpContext);
             var cart = CartService.GetCart(this.HttpContext);
             ViewBag.Cart = cart.GetCartProducts();
-            
+            ViewBag.TotalPrice = cart.GetCartTotalPrice();
+
             if (previousOrder != null) {
                 
                 return View(previousOrder);
