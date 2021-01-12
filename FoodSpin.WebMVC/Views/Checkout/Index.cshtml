@@ -26,7 +26,6 @@
                 @Html.HiddenFor(model => model.Username)
                 @Html.HiddenFor(model => model.Total)
                 @Html.HiddenFor(model => model.OrderDate)
-                @Html.HiddenFor(model => model.OrderDetails)
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -100,8 +99,6 @@
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">Order Summary</span>
                 </h4>
-                @{
-                    var total = 0;
                     <ul class="list-group mb-3">
                         @foreach (var item in ViewBag.Cart)
                         {
@@ -111,15 +108,13 @@
                                 </div>
                                 <span>$@item.Product.ProductPrice</span>
                             </li>
-                            total += item.Product.ProductPrice;
                         }
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (USD)</span>
-                            <strong>$@total</strong>
+                            <strong>$@ViewBag.TotalPrice</strong>
                         </li>
                     </ul>
-                }
                     <div>
 
                         <button class="btn btn-primary btn-block center-block" type="submit">Place Order</button>

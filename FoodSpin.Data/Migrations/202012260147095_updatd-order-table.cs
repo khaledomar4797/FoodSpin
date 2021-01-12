@@ -1,8 +1,7 @@
 namespace FoodSpin.Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class updatdordertable : DbMigration
     {
         public override void Up()
@@ -15,7 +14,7 @@ namespace FoodSpin.Data.Migrations
             AlterColumn("dbo.Order", "PostalCode", c => c.String(nullable: false));
             AlterColumn("dbo.Order", "Phone", c => c.String(nullable: false));
         }
-        
+
         public override void Down()
         {
             AlterColumn("dbo.Order", "Phone", c => c.String());

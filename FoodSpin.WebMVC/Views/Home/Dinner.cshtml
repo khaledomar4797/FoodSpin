@@ -5,11 +5,11 @@
 }
 <style>
     .meal-bg {
-        background-color: #76c6ff;
+        background-color: darkseagreen;
         color: black;
     }
     .meal-font-color {
-        color: #76c6ff;
+        color: darkseagreen;
     }
 </style>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -74,27 +74,28 @@
                 }
                 <div class="dotted-circle"></div>
             </div>
-            <div style="position: absolute; bottom: -32em; width: 100%;">
-                <button type="button" id="moveleft" class="btn meal-bg control btn-primary pull-left" style="float: left; margin-left: 13em; border-radius: 50%;">&#8595;</button>
-                <button type="button" id="moveright" class="btn meal-bg control btn-primary pull-right" style="float: right; margin-right: 10em; border-radius: 50%;">&#8595;</button>
+            <div id="move-buttons">
+                <button type="button" id="moveleft" class="btn meal-bg control btn-primary pull-left">&#8595;</button>
+                <button type="button" id="moveright" class="btn meal-bg control btn-primary pull-right">&#8595;</button>
             </div>
-
-            <ul id="list-of-front-image">
-                @for (int i = 0; i < Model.Count(); i++)
-                {
-                    string imageName = Model.ElementAt(i).ProductImage + ".jpg";
-
-                    if (i == 0)
+            <div class="f-i">
+                <ul id="list-of-front-image">
+                    @for (int i = 0; i < Model.Count(); i++)
                     {
-                        <li class="front-image showing"><img src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
-                    }
-                    else
-                    {
-                        <li class="front-image"><img src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
+                        string imageName = Model.ElementAt(i).ProductImage + ".jpg";
 
+                        if (i == 0)
+                        {
+                            <li class="front-image showing"><img class="img-responsive" src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
+                        }
+                        else
+                        {
+                            <li class="front-image"><img class="img-responsive" src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
+
+                        }
                     }
-                }
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

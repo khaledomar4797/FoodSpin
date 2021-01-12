@@ -4,16 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FoodSpin.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private readonly Guid _userId;
 
-        public ProductService (Guid userId)
+        public ProductService(Guid userId)
         {
             _userId = userId;
         }
@@ -32,7 +31,7 @@ namespace FoodSpin.Services
                     ProductName = model.ProductName,
                     ProductDescription = model.ProductDescription,
                     ProductPrice = model.ProductPrice,
-                    ProductCategory = (Data.Category) model.ProductCategory,
+                    ProductCategory = (Data.Category)model.ProductCategory,
                     ProductImage = model.ProductImage,
                     ProductQuantity = model.ProductQuantity
                 };
@@ -51,7 +50,6 @@ namespace FoodSpin.Services
                 var query =
                     await ctx
                         .Products
-                        .Where(p => p.OwnerId == _userId)
                         .Select(
                             p =>
                                 new ProductListItem
@@ -60,7 +58,7 @@ namespace FoodSpin.Services
                                     ProductName = p.ProductName,
                                     ProductDescription = p.ProductDescription,
                                     ProductPrice = p.ProductPrice,
-                                    ProductImage = p.ProductImage
+                                    ProductQuantity = p.ProductQuantity
                                 }
                         ).ToListAsync();
 
@@ -68,7 +66,7 @@ namespace FoodSpin.Services
             }
         }
 
-        public async Task<ProductDetail> GetProductByIdAsync(int id)
+        public async Task<ProductDetail> GetProductByIdAsync(int? id)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -84,7 +82,9 @@ namespace FoodSpin.Services
                         ProductName = entity.ProductName,
                         ProductDescription = entity.ProductDescription,
                         ProductPrice = entity.ProductPrice,
-                        ProductImage = entity.ProductImage
+                        ProductImage = entity.ProductImage,
+                        ProductQuantity = entity.ProductQuantity,
+                        ProductCategory = (Models.Product.Category)entity.ProductCategory
                     };
             }
         }
@@ -113,6 +113,7 @@ namespace FoodSpin.Services
                 return query;
             }
         }
+
         public async Task<bool> UpdateProductAsync(ProductEdit model)
         {
             using (var ctx = new ApplicationDbContext())

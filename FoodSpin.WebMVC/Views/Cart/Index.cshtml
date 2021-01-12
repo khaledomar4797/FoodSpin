@@ -53,7 +53,7 @@
                     {
                         <tr id="row-@product.ProductId">
                             <td>
-                                @Html.ActionLink(product.Product.ProductName, "Details", "Product", new { id = product.ID }, null)
+                                @product.Product.ProductName
                             </td>
                             <td>
                                 $@product.Product.ProductPrice
@@ -68,7 +68,7 @@
                                 </a>
                             </td>
                             <td>
-                                @(product.Product.ProductPrice * product.Count)
+                                $@(product.Product.ProductPrice * product.Count)
                             </td>
                         </tr>
                     }
@@ -86,9 +86,9 @@
                 </tbody>
             </table>
 
-            <div style="float: right; margin: 0px 20px 0px 20px;">
-                <button type="button" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Home")'">Continue Ordering</button>
-                <button type="button" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Checkout")'">Processed to Checkout</button>
+            <div style="float: right;">
+                <button type="button" id="co-btn" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Home")'">Continue Ordering</button>
+                <button type="button" id="pc-btn" style="margin: 0px 20px 0px 20px;" class="btn btn-primary " onclick="location.href='@Url.Action("Index", "Checkout")'">Processed to Checkout</button>
             </div>
         </div>
     }
