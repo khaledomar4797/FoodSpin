@@ -4,6 +4,7 @@ namespace FoodSpin.Models.Product
 {
     public class ProductListItem
     {
+        [Display(Name = "Product Id")]
         public int ProductId { get; set; }
 
         [Display(Name = "Product Name")]
@@ -17,5 +18,8 @@ namespace FoodSpin.Models.Product
 
         [Display(Name = "Product Image")]
         public string ProductImage { get; set; }
+
+        [Display(Name = "Product Quantity")]
+        public int ProductQuantity { get; set; }
     }
 }

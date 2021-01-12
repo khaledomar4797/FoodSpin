@@ -11,6 +11,10 @@
                 <ul class="dropdown-menu">
                     <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <li><a href="/Admin/Dashboard/Index">Dashboard</a></li>
+                    }
                 </ul>
             </li>
             <li>@{Html.RenderAction("CartStatus", "Cart");}</li>

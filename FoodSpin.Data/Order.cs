@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodSpin.Data
 {
@@ -43,6 +39,6 @@ namespace FoodSpin.Data
 
         [Display(Name = "Order Date")]
         public System.DateTime OrderDate { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+        public virtual List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
     }
 }
