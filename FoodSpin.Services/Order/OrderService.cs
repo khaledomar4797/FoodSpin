@@ -91,7 +91,7 @@ namespace FoodSpin.Services
                         Email = entity.Email,
                         Total = entity.Total,
                         OrderDate = entity.OrderDate,
-                        OrderDetails = entity.OrderDetails.Where(or => or.OrderId == entity.OrderId).Select(o => new OrderProductList 
+                        OrderDetails = entity.OrderDetails.Where(or => or.OrderId == entity.OrderId).Select(o => new OrderProductList
                         {
                             ProductName = o.Product.ProductName,
                             ProductPrice = o.UnitPrice

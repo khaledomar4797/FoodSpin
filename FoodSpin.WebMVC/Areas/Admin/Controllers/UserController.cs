@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using FoodSpin.Data;
+﻿using FoodSpin.Models.User;
 using FoodSpin.Services.User;
-using FoodSpin.Models.User;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace FoodSpin.WebMVC.Areas.Admin.Controllers
 {

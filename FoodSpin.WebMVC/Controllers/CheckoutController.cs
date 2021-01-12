@@ -1,12 +1,6 @@
 ﻿using FoodSpin.Data;
 using FoodSpin.Services;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace OpenOrderFramework.Controllers
@@ -22,8 +16,9 @@ namespace OpenOrderFramework.Controllers
             ViewBag.Cart = cart.GetCartProducts();
             ViewBag.TotalPrice = cart.GetCartTotalPrice();
 
-            if (previousOrder != null) {
-                
+            if (previousOrder != null)
+            {
+
                 return View(previousOrder);
             }
             else
@@ -43,7 +38,7 @@ namespace OpenOrderFramework.Controllers
                 order.Username = User.Identity.Name;
                 order.Email = User.Identity.Name;
                 order.OrderDate = DateTime.Now;
-                
+
                 var cart = CartService.GetCart(this.HttpContext);
                 order = cart.CreateOrder(order);
 

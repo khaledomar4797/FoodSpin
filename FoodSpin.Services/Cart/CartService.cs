@@ -167,7 +167,7 @@ namespace FoodSpin.Services
             }
             return context.Session[CartSessionKey].ToString();
         }
-        
+
         public void MigrateCart(string userName)
         {
             var cart = ctx.Carts.Where(

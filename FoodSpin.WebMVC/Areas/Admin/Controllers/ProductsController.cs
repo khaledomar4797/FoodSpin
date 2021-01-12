@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using FoodSpin.Data;
+﻿using FoodSpin.Models.Product;
 using FoodSpin.Services;
-using FoodSpin.Models.Product;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace FoodSpin.WebMVC.Areas.Admin.Controllers
 {
@@ -60,7 +53,7 @@ namespace FoodSpin.WebMVC.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(await _productService.CreateProductAsync(model))
+                if (await _productService.CreateProductAsync(model))
                 {
                     TempData["SaveResult"] = "Your product was created.";
 

@@ -81,7 +81,7 @@ namespace FoodSpin.Services.Dashboard
 
                 int count = 0;
 
-                foreach(Data.Category category in Enum.GetValues(typeof(Data.Category)))
+                foreach (Data.Category category in Enum.GetValues(typeof(Data.Category)))
                 {
                     count = ctx.OrderDetails.Where(o => o.Product.ProductCategory == category).Count();
                     dataPoints.Add(new DataPoint(category.ToString(), count));
@@ -103,12 +103,12 @@ namespace FoodSpin.Services.Dashboard
 
                 week.Reverse();
 
-                foreach(var date in week)
+                foreach (var date in week)
                 {
                     count = ctx.Orders
-                        .Where(o => 
-                        o.OrderDate.Day == date.Day && 
-                        o.OrderDate.Month == date.Month && 
+                        .Where(o =>
+                        o.OrderDate.Day == date.Day &&
+                        o.OrderDate.Month == date.Month &&
                         o.OrderDate.Year == date.Year).Count();
 
                     dataPoints.Add(new DataPoint(date.Date.ToString("dd/MM/yyyy"), count));

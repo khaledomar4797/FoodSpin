@@ -113,7 +113,7 @@ namespace FoodSpin.Services
                 return query;
             }
         }
-        
+
         public async Task<bool> UpdateProductAsync(ProductEdit model)
         {
             using (var ctx = new ApplicationDbContext())
