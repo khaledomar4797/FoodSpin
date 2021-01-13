@@ -206,6 +206,18 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\chicken-salad.jpg" />
+    <Content Include="Content\Images\dumpling.jpg" />
+    <Content Include="Content\Images\eggs.jpg" />
+    <Content Include="Content\Images\favicon.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\salmon-steak.jpg" />
+    <Content Include="Content\Images\salmon.jpg" />
+    <Content Include="Content\Images\spaghetti-groundbeef.jpg" />
+    <Content Include="Content\Images\spaghetti.jpg" />
+    <Content Include="Content\Images\tenders.jpg" />
+    <Content Include="Content\Images\tilapia.jpg" />
+    <Content Include="Content\Images\waffle.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -286,7 +298,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

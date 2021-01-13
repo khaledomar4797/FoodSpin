@@ -70,7 +70,8 @@
                 @foreach (var product in Model)
                 {
                     string imageName = product.ProductImage + ".jpg";
-                    <img src="~/Content/Images/@imageName" class="spinner">
+                    //<img src="~/Content/Images/@imageName" class="spinner">
+                    <img src="@Url.Content("~/Content/Images/" + imageName)" class="spinner">
                 }
                 <div class="dotted-circle"></div>
             </div>
@@ -86,11 +87,11 @@
 
                         if (i == 0)
                         {
-                            <li class="front-image showing"><img class="img-responsive" src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
+                            <li class="front-image showing"><img class="img-responsive" src="@Url.Content("~/Content/Images/" + imageName)" style="border-radius: 50%"></li>
                         }
                         else
                         {
-                            <li class="front-image"><img class="img-responsive" src="~/Content/Images/@imageName" style="border-radius: 50%"></li>
+                            <li class="front-image"><img class="img-responsive" src="@Url.Content("~/Content/Images/" + imageName)" style="border-radius: 50%"></li>
 
                         }
                     }
