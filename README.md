@@ -1,5 +1,5 @@
 # FoodSpin
-A sample online food order website that is built with .NET Framework MVC 5 using n-tier architecture.
+A sample online food ordering website that is built with .NET Framework MVC 5 using n-tier architecture.
 
 ## Getting Started
 
